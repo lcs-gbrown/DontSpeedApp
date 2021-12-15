@@ -21,13 +21,13 @@ struct ContentView: View {
     
     var feedback: String {
         switch speedTravelled {
-        case ...(0):
+        case ...(0 + speedLimit):
             return "You are going under the speed limit"
-        case 1...20:
+        case 1...20 + speedLimit:
                 return "$100 fine"
-        case 21...30:
+        case 21...30 + speedLimit:
                 return "$270 fine"
-        case 30...150:
+        case 30...150 + speedLimit:
                 return "$500 fine"
         default:
             return "Travel safe."
@@ -39,7 +39,7 @@ struct ContentView: View {
         VStack {
             
             HStack {
-                Text("Speed Radar")
+                Text("Speed Limit")
                     .bold()
                 
                 Spacer()
@@ -62,10 +62,19 @@ struct ContentView: View {
             
             HStack {
                 Spacer()
-                Text("\(String(format: "%.2f", speedLimit))")
+                Text("\(String(format: "%.0f", speedLimit))")
                     .font(.title2)
                     .bold()
                 Spacer()
+            }
+            
+            
+            HStack {
+                Text("Speed Travelled")
+                    .bold()
+                
+                Spacer()
+
             }
             
             // Input: Speed travelled
@@ -82,6 +91,13 @@ struct ContentView: View {
                 Text("200")
             })
         
+            HStack {
+                Spacer()
+                Text("\(String(format: "%.0f", speedTravelled))")
+                    .font(.title2)
+                    .bold()
+                Spacer()
+            }
             
             //Output:Provide feedback on their fine
             Text(feedback)
@@ -97,6 +113,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        NavigationView {
+            ContentView()
+        }
     }
 }
